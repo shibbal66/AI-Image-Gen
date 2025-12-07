@@ -13,7 +13,7 @@ export interface RecentImagesState {
   clearError: () => void;
 }
 
-export const useRecentImagesStore = create<RecentImagesState>((set, get) => ({
+export const useRecentImagesStore = create<RecentImagesState>((set) => ({
   images: [],
   isLoading: false,
   error: null,

@@ -1,5 +1,7 @@
 // Get API key from environment variables
 const apiKey = import.meta.env.VITE_NANOBANANA_API_KEY;
+const isDev = import.meta.env.MODE === "development";
+
 
 if (!apiKey) {
   throw new Error(
@@ -93,7 +95,7 @@ async function checkTaskStatus(taskId: string): Promise<NanoBananaStatusResponse
   const result = await response.json();
   
   // Debug logging (can be removed in production)
-  if (process.env.NODE_ENV === "development") {
+  if (isDev) {
     console.log(`[NanoBanana] Status check for task ${taskId}:`, {
       status: response.status,
       response: result,
@@ -182,7 +184,7 @@ async function pollTaskStatus(
       const errorMessage = statusResponse.data?.errorMessage ?? statusResponse.errorMessage;
 
       // Debug logging
-      if (process.env.NODE_ENV === "development") {
+      if (isDev) {
         console.log(`[NanoBanana] Polling status for task ${taskId}:`, {
           successFlag,
           hasResponseData: !!responseData,
